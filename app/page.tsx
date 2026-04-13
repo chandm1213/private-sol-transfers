@@ -30,36 +30,41 @@ export default function Page() {
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <div className="min-h-screen bg-black relative overflow-hidden">
-            {/* Animated background elements */}
+          <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+            {/* Subtle background pattern */}
             <div className="fixed inset-0 pointer-events-none">
-              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl animate-pulse" />
-              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+              <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-100/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
+              <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-50/60 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
             </div>
 
             {/* Header */}
-            <header className="relative z-10 border-b border-indigo-900/30 bg-black/50 backdrop-blur-lg">
-              <div className="max-w-6xl mx-auto px-4 py-6 md:py-8 flex items-center justify-between gap-4">
+            <header className="relative z-10 border-b border-gray-200 bg-white/80 backdrop-blur-xl shadow-sm">
+              <div className="max-w-6xl mx-auto px-4 py-5 md:py-6 flex items-center justify-between gap-4">
                 <div className="group cursor-pointer">
-                  <h1 className="text-2xl md:text-4xl font-bold text-blue-400">
-                    Smart Pay
-                  </h1>
-                  <p className="text-sm text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">Private SOL Transfers on Solana</p>
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center shadow-md shadow-emerald-200">
+                      <span className="text-white text-lg font-bold">S</span>
+                    </div>
+                    <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
+                      Smart Pay
+                    </h1>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-1 ml-[46px] font-medium tracking-wide uppercase">Private SOL Transfers</p>
                 </div>
                 <div className="flex flex-col md:flex-row items-center gap-2 md:gap-3">
                   <Button
                     asChild
-                    className="bg-purple-600 hover:bg-purple-700 text-white font-semibold shadow-lg transition-all duration-300 w-full md:w-auto"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-md shadow-emerald-100 transition-all duration-200 w-full md:w-auto rounded-xl"
                   >
                     <Link href="/generate">🔗 Payment Links</Link>
                   </Button>
-                  <WalletMultiButton className="!bg-purple-600 hover:!bg-purple-700 !shadow-lg transition-all duration-300 w-full md:w-auto" />
+                  <WalletMultiButton className="!bg-gray-900 hover:!bg-gray-800 !shadow-md !rounded-xl transition-all duration-200 w-full md:w-auto" />
                 </div>
               </div>
             </header>
 
             {/* Main Content */}
-            <main className="relative z-10 max-w-6xl mx-auto px-4 py-8 md:py-16">
+            <main className="relative z-10 max-w-6xl mx-auto px-4 py-8 md:py-14">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
                 {/* Left Column - Transfer Form */}
                 <div className="lg:col-span-2">
@@ -74,24 +79,24 @@ export default function Page() {
             </main>
 
             {/* Footer */}
-            <footer className="relative z-10 border-t border-slate-700/50 bg-slate-900/50 backdrop-blur-lg mt-20 py-12">
-              <div className="max-w-6xl mx-auto px-4 text-center text-slate-400 text-sm">
-                <p className="hover:text-slate-300 transition-colors">
+            <footer className="relative z-10 border-t border-gray-200 bg-white/60 backdrop-blur-lg mt-20 py-10">
+              <div className="max-w-6xl mx-auto px-4 text-center text-gray-500 text-sm">
+                <p>
                   Smart Pay enables private SOL transfers using{' '}
                   <a
                     href="https://privacy.cash"
                     target="_blank"
                     rel="noreferrer"
-                    className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+                    className="text-emerald-600 hover:text-emerald-700 font-semibold transition-colors"
                   >
                     Privacy Cash SDK
                   </a>
                 </p>
-                <p className="mt-3 space-x-3">
-                  <span className="inline-block hover:text-slate-300 transition-colors">✓ Non-custodial</span>
-                  <span className="inline-block hover:text-slate-300 transition-colors">✓ Zero-knowledge</span>
-                  <span className="inline-block hover:text-slate-300 transition-colors">✓ Unlinkable</span>
-                </p>
+                <div className="mt-4 flex items-center justify-center gap-6 text-xs font-medium text-gray-400">
+                  <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Non-custodial</span>
+                  <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Zero-knowledge</span>
+                  <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Unlinkable</span>
+                </div>
               </div>
             </footer>
           </div>

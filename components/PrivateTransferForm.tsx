@@ -289,32 +289,34 @@ export default function PrivateTransferForm({
   }
 
   return (
-    <Card className={`bg-indigo-950/50 border border-indigo-900/50 shadow-2xl backdrop-blur-lg`}>
-      <CardHeader className="pb-6 border-b border-indigo-900/40">
+    <Card className="bg-white border border-gray-200 shadow-xl rounded-2xl overflow-hidden">
+      <CardHeader className="pb-5 border-b border-gray-100 bg-gradient-to-r from-emerald-50 to-white">
         <div className="flex items-start justify-between">
           <div>
-            <CardTitle className="text-2xl text-blue-400">
+            <CardTitle className="text-2xl font-extrabold text-gray-900 tracking-tight">
               {isPaymentLink ? 'Send Private Payment' : 'Private Transfer'}
             </CardTitle>
-            <CardDescription className="text-gray-400 mt-3 space-y-1 text-sm">
+            <CardDescription className="mt-2.5 space-y-1 text-sm">
               {isPaymentLink 
-                ? 'Your wallet will remain private and unlinkable to the recipient'
+                ? <p className="text-gray-500">Your wallet will remain private and unlinkable to the recipient</p>
                 : (
                   <>
-                    <p className="font-semibold text-gray-300">Introducing Multi Send.</p>
-                    <p className="text-gray-400">Split funds and privately send to up to 5 recipients in one go.</p>
-                    <p className="text-gray-400">Private, and now more convenient.</p>
+                    <p className="font-bold text-emerald-700">Introducing Multi Send.</p>
+                    <p className="text-gray-500">Split funds and privately send to up to 5 recipients in one go.</p>
+                    <p className="text-gray-400 text-xs">Private, and now more convenient.</p>
                   </>
                 )}
             </CardDescription>
           </div>
-          <div className="text-4xl animate-bounce">🔒</div>
+          <div className="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center">
+            <span className="text-2xl">🔒</span>
+          </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6 pt-6">
+      <CardContent className="space-y-5 pt-6 pb-8 px-6">
         {/* Amount Input */}
-        <div className="space-y-2 group">
-          <label className="text-sm font-semibold text-white block">
+        <div className="space-y-1.5">
+          <label className="text-sm font-semibold text-gray-700 block">
             Amount (SOL)
           </label>
           <Input
@@ -322,40 +324,43 @@ export default function PrivateTransferForm({
             placeholder="0.5"
             value={transferState.amount}
             onChange={(e) => setTransferState((prev) => ({ ...prev, amount: e.target.value }))}
-            className="bg-indigo-900/40 border border-indigo-800/60 text-white placeholder:text-gray-500 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all duration-300"
+            className="bg-gray-50 border border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-emerald-500 focus:ring-emerald-500/20 rounded-xl h-12 text-base transition-all duration-200"
             disabled={transferState.loading}
             step="0.1"
             min="0"
           />
-          <p className="text-xs text-gray-500">This amount will be split and sent to all recipients</p>
+          <p className="text-xs text-gray-400">This amount will be split equally among all recipients</p>
         </div>
 
-        {/* Recipient Addresses - Hidden for payment links */}
+        {/* Recipient Addresses */}
         {!isPaymentLink && (
-          <div className="space-y-3 group">
+          <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-white">
+              <label className="text-sm font-semibold text-gray-700">
                 Recipient Addresses
               </label>
-              <span className="text-xs text-gray-500">
-                {transferState.recipients.filter(r => r.address.trim()).length} of {transferState.recipients.length} recipients
+              <span className="text-xs font-medium text-gray-400 bg-gray-100 px-2.5 py-1 rounded-full">
+                {transferState.recipients.filter(r => r.address.trim()).length}/{transferState.recipients.length}
               </span>
             </div>
-            <div className="space-y-3 max-h-80 overflow-y-auto">
+            <div className="space-y-2.5 max-h-80 overflow-y-auto">
               {transferState.recipients.map((recipient, index) => (
                 <div key={recipient.id} className="flex gap-2 items-start">
                   <div className="flex-1 space-y-1">
-                    <Input
-                      type="text"
-                      placeholder={`Recipient ${index + 1} (SOL address)`}
-                      value={recipient.address}
-                      onChange={(e) => updateRecipient(recipient.id, e.target.value)}
-                      className="bg-indigo-900/40 border border-indigo-800/60 text-white placeholder:text-gray-500 text-xs focus:border-indigo-500 focus:ring-indigo-500/20 transition-all duration-300"
-                      disabled={transferState.loading}
-                    />
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-300">{index + 1}</span>
+                      <Input
+                        type="text"
+                        placeholder={`Recipient address`}
+                        value={recipient.address}
+                        onChange={(e) => updateRecipient(recipient.id, e.target.value)}
+                        className="bg-gray-50 border border-gray-200 text-gray-900 placeholder:text-gray-400 text-xs rounded-xl h-11 pl-8 focus:border-emerald-500 focus:ring-emerald-500/20 transition-all duration-200"
+                        disabled={transferState.loading}
+                      />
+                    </div>
                     {transferState.amount && parseFloat(transferState.amount) > 0 && (
-                      <p className="text-xs text-blue-400">
-                        ~{(parseFloat(transferState.amount) / transferState.recipients.length).toFixed(4)} SOL per recipient
+                      <p className="text-xs text-emerald-600 font-medium pl-1">
+                        ≈ {(parseFloat(transferState.amount) / transferState.recipients.length).toFixed(4)} SOL
                       </p>
                     )}
                   </div>
@@ -365,7 +370,7 @@ export default function PrivateTransferForm({
                       size="sm"
                       onClick={() => removeRecipient(recipient.id)}
                       disabled={transferState.loading}
-                      className="mt-1 h-10 px-2 text-red-400 hover:bg-red-950/40 hover:text-red-300 transition-colors"
+                      className="mt-0.5 h-11 w-11 p-0 text-gray-400 hover:bg-red-50 hover:text-red-500 rounded-xl transition-colors"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -378,43 +383,41 @@ export default function PrivateTransferForm({
               <Button
                 onClick={addRecipient}
                 disabled={transferState.loading}
-                className="w-full bg-white text-purple-600 hover:bg-slate-100 transition-all duration-300 font-medium"
+                variant="outline"
+                className="w-full border-dashed border-2 border-gray-200 text-gray-500 hover:border-emerald-400 hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200 font-medium rounded-xl h-11"
               >
                 <Plus className="h-4 w-4 mr-2" />
-                Add Recipient
+                Add Recipient ({transferState.recipients.length}/5)
               </Button>
             )}
-            <p className="text-xs text-gray-500">
-              Each recipient will receive an equal share of the total amount
-            </p>
           </div>
         )}
 
         {/* Encryption Alert */}
         {!encryptionInitialized && (
-          <Alert className="bg-purple-950/50 border-purple-800/40 backdrop-blur-sm">
-            <AlertCircle className="h-4 w-4 text-purple-400" />
-            <AlertDescription className="text-gray-300 ml-2">
-              🔑 Initialize your encryption key first by signing a message with your wallet.
+          <Alert className="bg-amber-50 border border-amber-200 rounded-xl">
+            <AlertCircle className="h-4 w-4 text-amber-500" />
+            <AlertDescription className="text-amber-800 text-sm ml-2">
+              Initialize your encryption key first by signing a message with your wallet.
             </AlertDescription>
           </Alert>
         )}
 
         {/* Error Alert */}
         {transferState.error && (
-          <Alert className="bg-red-950/30 border-red-800/50">
-            <AlertCircle className="h-4 w-4 text-red-400" />
-            <AlertDescription className="text-red-300">
-              <div className="font-semibold">Error:</div>
+          <Alert className="bg-red-50 border border-red-200 rounded-xl">
+            <AlertCircle className="h-4 w-4 text-red-500" />
+            <AlertDescription className="text-red-700">
+              <div className="font-semibold text-sm">Error</div>
               <div className="text-sm mt-1">{transferState.error}</div>
               {transferState.error.includes('Insufficient balance') && (
-                <div className="text-xs mt-2 text-red-200">
-                  💡 Tip: Make sure your wallet has enough SOL for the deposit amount + transaction fees
+                <div className="text-xs mt-2 text-red-500">
+                  💡 Make sure your wallet has enough SOL for the deposit + fees
                 </div>
               )}
               {transferState.error.includes('expired') && (
-                <div className="text-xs mt-2 text-red-200">
-                  💡 Tip: The Privacy Cash relayer took too long. Try again with a smaller amount or wait a moment before retrying.
+                <div className="text-xs mt-2 text-red-500">
+                  💡 The relayer took too long. Try again with a smaller amount.
                 </div>
               )}
             </AlertDescription>
@@ -423,30 +426,30 @@ export default function PrivateTransferForm({
 
         {/* Success Alerts */}
         {(transferState.depositTxHash || transferState.withdrawTxHashes?.length) && (
-          <Alert className="bg-purple-950/40 border-purple-800/50">
-            <CheckCircle2 className="h-4 w-4 text-purple-400" />
-            <AlertDescription className="text-slate-200">
-              ✅ Private multi-transfer complete! Check transaction hashes below.
+          <Alert className="bg-emerald-50 border border-emerald-200 rounded-xl">
+            <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+            <AlertDescription className="text-emerald-800 text-sm font-medium ml-2">
+              ✅ Private multi-transfer complete!
             </AlertDescription>
           </Alert>
         )}
 
         {transferState.depositTxHash && (
-          <Alert className="bg-emerald-950/30 border-emerald-800/50">
-            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-            <AlertDescription className="text-emerald-300">
+          <Alert className="bg-emerald-50/60 border border-emerald-100 rounded-xl">
+            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+            <AlertDescription className="text-emerald-700 text-sm">
               {transferState.depositTxHash === 'Transaction sent' ? (
-                <>✅ Deposit sent to shielded pool</>
+                <>Deposit sent to shielded pool</>
               ) : (
                 <>
-                  ✅ Deposit TX:{' '}
+                  Deposit TX:{' '}
                   <a
                     href={`https://solscan.io/tx/${transferState.depositTxHash}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-emerald-200 hover:text-emerald-100 underline break-all"
+                    className="text-emerald-600 hover:text-emerald-800 underline font-medium break-all"
                   >
-                    {transferState.depositTxHash.slice(0, 16)}...
+                    {transferState.depositTxHash.slice(0, 20)}...
                   </a>
                 </>
               )}
@@ -456,23 +459,23 @@ export default function PrivateTransferForm({
 
         {transferState.withdrawTxHashes && transferState.withdrawTxHashes.length > 0 && (
           <div className="space-y-2">
-            <p className="text-sm font-semibold text-emerald-300">Withdrawal Transactions:</p>
+            <p className="text-sm font-semibold text-gray-700">Withdrawal Transactions:</p>
             {transferState.withdrawTxHashes.map((hash, index) => (
-              <Alert key={index} className="bg-emerald-950/20 border-emerald-800/40">
-                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                <AlertDescription className="text-emerald-300">
+              <Alert key={index} className="bg-emerald-50/40 border border-emerald-100 rounded-xl">
+                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                <AlertDescription className="text-emerald-700 text-sm">
                   {hash === 'Transaction sent' ? (
-                    <>✅ Withdrawal {index + 1} completed - SOL sent to recipient</>
+                    <>Withdrawal {index + 1} completed</>
                   ) : (
                     <>
-                      ✅ Withdraw TX {index + 1}:{' '}
+                      Withdraw {index + 1}:{' '}
                       <a
                         href={`https://solscan.io/tx/${hash}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-emerald-200 hover:text-emerald-100 underline break-all"
+                        className="text-emerald-600 hover:text-emerald-800 underline font-medium break-all"
                       >
-                        {hash.slice(0, 16)}...
+                        {hash.slice(0, 20)}...
                       </a>
                     </>
                   )}
@@ -484,28 +487,32 @@ export default function PrivateTransferForm({
 
         {/* Processing Status */}
         {transferState.loading && (
-          <Alert className="bg-purple-950/40 border-purple-800/50">
-            <AlertCircle className="h-4 w-4 text-purple-400 animate-spin" />
-            <AlertDescription className="text-slate-300">
-              Processing: {transferState.step === 'processing' ? 'Executing deposit & withdraw...' : 'Ready'}
+          <Alert className="bg-blue-50 border border-blue-200 rounded-xl">
+            <AlertCircle className="h-4 w-4 text-blue-500 animate-spin" />
+            <AlertDescription className="text-blue-700 text-sm font-medium">
+              {transferState.step === 'processing' ? 'Executing deposit & withdraw...' : 'Ready'}
             </AlertDescription>
           </Alert>
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-3 pt-4">
+        <div className="flex gap-3 pt-2">
           <Button
             onClick={initializeEncryption}
             variant="outline"
             disabled={transferState.loading || encryptionInitialized}
-            className="flex-1 bg-indigo-900/60 border-indigo-800/60 text-gray-300 hover:bg-indigo-800/60 hover:text-gray-200 hover:border-indigo-700/80 transition-all duration-300"
+            className={`flex-1 rounded-xl h-12 font-semibold transition-all duration-200 ${
+              encryptionInitialized 
+                ? 'bg-emerald-50 border-emerald-200 text-emerald-600' 
+                : 'border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-gray-300'
+            }`}
           >
-            🔐 Initialize Encryption
+            {encryptionInitialized ? '✓ Encrypted' : '🔐 Init Encryption'}
           </Button>
           <Button
             onClick={handleDepositAndMultiWithdraw}
             disabled={transferState.loading || !publicKey || !encryptionInitialized}
-            className="flex-1 bg-purple-600 hover:bg-purple-700 shadow-lg shadow-purple-500/40 transition-all duration-300 font-semibold text-white"
+            className="flex-1 bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all duration-200 font-bold text-white rounded-xl h-12 text-sm"
           >
             {transferState.loading ? (
               <>
@@ -514,23 +521,21 @@ export default function PrivateTransferForm({
               </>
             ) : (
               <>
-                ✈️ Deposit & Withdraw
+                Send Privately ✈️
               </>
             )}
           </Button>
         </div>
 
         {/* Info Box */}
-        <div className="text-xs text-gray-400 bg-indigo-900/30 border border-indigo-800/40 p-4 rounded-lg backdrop-blur-sm">
-          <p className="font-semibold text-gray-300 mb-3 flex items-center gap-2">
-            <span>💡</span> How it works:
-          </p>
-          <ol className="list-decimal list-inside space-y-1 text-gray-400">
+        <div className="text-xs text-gray-500 bg-gray-50 border border-gray-100 p-4 rounded-xl">
+          <p className="font-bold text-gray-700 mb-2.5 text-sm">How it works</p>
+          <ol className="list-decimal list-inside space-y-1.5 text-gray-500 leading-relaxed">
             <li>Enter total amount to distribute</li>
             <li>Add up to 5 recipient addresses</li>
             <li>Sign with your wallet to initialize encryption</li>
-            <li>Click "Deposit & Withdraw" to split funds and send privately</li>
-            <li>Each recipient gets an equal share - sender remains unlinkable</li>
+            <li>Click "Send Privately" to split funds</li>
+            <li>Each recipient gets an equal share — sender remains unlinkable</li>
           </ol>
         </div>
       </CardContent>
