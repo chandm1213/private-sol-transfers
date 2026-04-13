@@ -1,14 +1,14 @@
-'use client'
 
-import React, { useState } from 'react'
-import { useWallet } from '@solana/wallet-adapter-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { AlertCircle, CheckCircle2, Copy, QrCode } from 'lucide-react'
-import { generatePaymentLink, generateQRCode } from '@/lib/paymentLink'
-import Link from 'next/link'
+'use client';
+import React, { useState } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { AlertCircle, CheckCircle2, Copy, QrCode } from 'lucide-react';
+import { generatePaymentLink, generateQRCode } from '@/lib/paymentLink';
+import Link from 'next/link';
 
 export default function GeneratePaymentLinkPage() {
   const { publicKey } = useWallet()
@@ -70,7 +70,7 @@ export default function GeneratePaymentLinkPage() {
         <div className="max-w-6xl mx-auto px-4 py-6 md:py-8 flex items-center justify-between">
           <Link href="/" className="group cursor-pointer">
             <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent hover:from-teal-300 hover:to-cyan-300 transition-all duration-300">
-              PrivatePay
+              Smart Pay
             </h1>
             <p className="text-xs md:text-sm text-slate-400 mt-1 group-hover:text-slate-300 transition-colors">Generate Private Payment Links</p>
           </Link>
@@ -193,7 +193,7 @@ export default function GeneratePaymentLinkPage() {
                   variant="outline"
                   className="w-full border-teal-500/30 text-teal-300 hover:bg-teal-500/10"
                 >
-                  <Link href="/">← Back to PrivatePay</Link>
+                  <Link href="/">← Back to Smart Pay</Link>
                 </Button>
               </div>
             )}
@@ -204,5 +204,4 @@ export default function GeneratePaymentLinkPage() {
   )
 }
 
-export const dynamic = 'force-dynamic'
 

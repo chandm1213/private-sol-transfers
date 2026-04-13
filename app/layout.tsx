@@ -7,7 +7,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'PrivatePay - Private SOL Transfers',
+  title: 'Smart Pay - Private SOL Transfers',
   description: 'Private Solana token transfers using Privacy Cash SDK',
     generator: 'v0.app'
 }

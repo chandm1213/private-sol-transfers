@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
 import React, { useState, useEffect } from 'react'
-import { ConnectionProvider, WalletProvider, useConnection, useWallet } from '@solana/wallet-adapter-react'
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import {
   PhantomWalletAdapter,
@@ -19,10 +19,7 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic'
 
 // Dynamically import PrivateTransferForm to avoid WASM bundling at build time
-const PrivateTransferForm = dynamic(() => import('@/components/PrivateTransferForm'), {
-  loading: () => <div className="h-96 bg-slate-800/50 border border-slate-700 rounded-lg animate-pulse" />,
-  ssr: false,
-})
+const PrivateTransferForm = dynamic(() => import('@/components/PrivateTransferForm'), { ssr: false })
 
 interface PaymentState {
   amount: string
@@ -35,7 +32,7 @@ interface PaymentState {
 
 export default function PaymentLinkContent() {
   const searchParams = useSearchParams()
-  const { publicKey } = useWallet()
+  // Wallet context removed from SSR
   const [paymentState, setPaymentState] = useState<PaymentState>({
     amount: '',
     recipientAddress: null,
@@ -99,7 +96,7 @@ export default function PaymentLinkContent() {
           <div className="max-w-6xl mx-auto px-4 py-8 flex items-center justify-between">
             <Link href="/" className="group cursor-pointer">
               <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent hover:from-teal-300 hover:to-cyan-300 transition-all duration-300">
-                PrivatePay
+                Smart Pay
               </h1>
               <p className="text-sm text-slate-400 mt-1">Private Payment Link</p>
             </Link>
@@ -123,7 +120,7 @@ export default function PaymentLinkContent() {
                 asChild
                 className="w-full mt-4 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500"
               >
-                <Link href="/">← Back to PrivatePay</Link>
+                <Link href="/">← Back to Smart Pay</Link>
               </Button>
             </CardContent>
           </Card>
@@ -151,7 +148,7 @@ export default function PaymentLinkContent() {
         <div className="max-w-6xl mx-auto px-4 py-8 flex items-center justify-between">
           <Link href="/" className="group cursor-pointer">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent hover:from-teal-300 hover:to-cyan-300 transition-all duration-300">
-              PrivatePay
+              Smart Pay
             </h1>
             <p className="text-sm text-slate-400 mt-1">Private Payment Link</p>
           </Link>

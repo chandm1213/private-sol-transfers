@@ -1,24 +1,20 @@
-'use client'
 
-import React from 'react'
-import dynamic from 'next/dynamic'
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
-import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+'use client';
+import React from 'react';
+import dynamic from 'next/dynamic';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
-} from '@solana/wallet-adapter-wallets'
-import { clusterApiUrl } from '@solana/web3.js'
-import WalletInfo from '@/components/WalletInfo'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import '@solana/wallet-adapter-react-ui/styles.css'
+} from '@solana/wallet-adapter-wallets';
+import { clusterApiUrl } from '@solana/web3.js';
+const PrivateTransferForm = dynamic(() => import('@/components/PrivateTransferForm'), { ssr: false });
+const WalletInfo = dynamic(() => import('@/components/WalletInfo'), { ssr: false });
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import '@solana/wallet-adapter-react-ui/styles.css';
 
-// Dynamically import PrivateTransferForm to avoid bundling WASM modules at build time
-const PrivateTransferForm = dynamic(() => import('@/components/PrivateTransferForm'), {
-  loading: () => <div className="h-96 bg-slate-800/50 border border-slate-700 rounded-lg animate-pulse" />,
-  ssr: false,
-})
 
 export default function Page() {
   const network = 'mainnet-beta'
@@ -37,27 +33,27 @@ export default function Page() {
           <div className="min-h-screen bg-black relative overflow-hidden">
             {/* Animated background elements */}
             <div className="fixed inset-0 pointer-events-none">
-              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse" />
-              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
             </div>
 
             {/* Header */}
-            <header className="relative z-10 border-b border-teal-900/20 bg-black/40 backdrop-blur-xl">
+            <header className="relative z-10 border-b border-indigo-900/30 bg-black/50 backdrop-blur-lg">
               <div className="max-w-6xl mx-auto px-4 py-6 md:py-8 flex items-center justify-between gap-4">
                 <div className="group cursor-pointer">
-                  <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent hover:from-teal-300 hover:to-cyan-300 transition-all duration-300">
-                    PrivatePay
+                  <h1 className="text-2xl md:text-4xl font-bold text-blue-400">
+                    Smart Pay
                   </h1>
-                  <p className="text-sm text-slate-400 mt-1 group-hover:text-slate-300 transition-colors">Private SOL Transfers on Solana</p>
+                  <p className="text-sm text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">Private SOL Transfers on Solana</p>
                 </div>
                 <div className="flex flex-col md:flex-row items-center gap-2 md:gap-3">
                   <Button
                     asChild
-                    className="bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white font-semibold shadow-lg shadow-cyan-500/20 transition-all duration-300 w-full md:w-auto"
+                    className="bg-purple-600 hover:bg-purple-700 text-white font-semibold shadow-lg transition-all duration-300 w-full md:w-auto"
                   >
                     <Link href="/generate">🔗 Payment Links</Link>
                   </Button>
-                  <WalletMultiButton className="!bg-gradient-to-r !from-teal-600 !to-cyan-600 hover:!from-teal-500 hover:!to-cyan-500 !shadow-lg !shadow-teal-500/20 transition-all duration-300 w-full md:w-auto" />
+                  <WalletMultiButton className="!bg-purple-600 hover:!bg-purple-700 !shadow-lg transition-all duration-300 w-full md:w-auto" />
                 </div>
               </div>
             </header>
@@ -78,15 +74,15 @@ export default function Page() {
             </main>
 
             {/* Footer */}
-            <footer className="relative z-10 border-t border-teal-900/20 bg-black/40 backdrop-blur-xl mt-20 py-12">
+            <footer className="relative z-10 border-t border-slate-700/50 bg-slate-900/50 backdrop-blur-lg mt-20 py-12">
               <div className="max-w-6xl mx-auto px-4 text-center text-slate-400 text-sm">
                 <p className="hover:text-slate-300 transition-colors">
-                  PrivatePay enables private SOL transfers using{' '}
+                  Smart Pay enables private SOL transfers using{' '}
                   <a
                     href="https://privacy.cash"
                     target="_blank"
                     rel="noreferrer"
-                    className="text-teal-400 hover:text-teal-300 font-semibold transition-colors"
+                    className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
                   >
                     Privacy Cash SDK
                   </a>

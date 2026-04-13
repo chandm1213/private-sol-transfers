@@ -25,7 +25,7 @@ function App() {
               <div className="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
                 <div>
                   <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                    PrivatePay
+                    Smart Pay
                   </h1>
                   <p className="text-sm text-slate-400 mt-1">Private SOL Transfers on Solana</p>
                 </div>
@@ -52,7 +52,7 @@ function App() {
             <footer className="border-t border-slate-700/50 bg-slate-900/50 mt-20 py-8">
               <div className="max-w-6xl mx-auto px-4 text-center text-slate-400 text-sm">
                 <p>
-                  PrivatePay enables private SOL transfers using{' '}
+                  Smart Pay enables private SOL transfers using{' '}
                   <a
                     href="https://privacy.cash"
                     target="_blank"
