@@ -84,41 +84,39 @@ export default function PaymentLinkContent() {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
-            <div className="min-h-screen bg-black relative overflow-hidden">
-        {/* Animated background */}
+            <div className="min-h-screen bg-[#f7faf7] relative overflow-hidden">
         <div className="fixed inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.10),transparent_60%)]" />
         </div>
 
         {/* Header */}
-        <header className="relative z-10 border-b border-teal-900/20 bg-black/40 backdrop-blur-xl">
+        <header className="relative z-10 border-b border-gray-200 bg-white/85 backdrop-blur-xl">
           <div className="max-w-6xl mx-auto px-4 py-8 flex items-center justify-between">
-            <Link href="/" className="group cursor-pointer">
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent hover:from-teal-300 hover:to-cyan-300 transition-all duration-300">
+            <Link href="/" className="flex flex-col">
+              <h1 className="text-3xl font-semibold tracking-[-0.03em] text-gray-950">
                 Smart Pay
               </h1>
-              <p className="text-sm text-slate-400 mt-1">Private Payment Link</p>
+              <p className="text-sm text-gray-400 mt-1">Private Payment Link</p>
             </Link>
             <div className="ml-4">
-              <WalletMultiButton className="!bg-gradient-to-r !from-teal-600 !to-cyan-600 hover:!from-teal-500 hover:!to-cyan-500 !shadow-lg !shadow-teal-500/20 transition-all duration-300" />
+              <WalletMultiButton className="!bg-gray-900 hover:!bg-gray-800 !shadow-md !rounded-xl transition-all duration-300" />
             </div>
           </div>
         </header>
 
         {/* Error Content */}
         <main className="relative z-10 max-w-2xl mx-auto px-4 py-16">
-          <Card className="bg-slate-900/50 border-red-900/30 backdrop-blur-xl">
+          <Card className="bg-white border border-red-200 shadow-xl rounded-[28px]">
             <CardContent className="pt-6">
-              <Alert className="bg-red-900/30 border-red-700">
+              <Alert className="bg-red-50 border-red-200">
                 <AlertCircle className="h-4 w-4 text-red-400" />
-                <AlertDescription className="text-red-300">
+                <AlertDescription className="text-red-700">
                   {paymentState.error || 'Loading payment link...'}
                 </AlertDescription>
               </Alert>
               <Button
                 asChild
-                className="w-full mt-4 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500"
+                className="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 rounded-xl"
               >
                 <Link href="/">← Back to Smart Pay</Link>
               </Button>
@@ -136,24 +134,28 @@ export default function PaymentLinkContent() {
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Animated background */}
+          <div className="min-h-screen bg-[#f7faf7] relative overflow-hidden">
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.10),transparent_60%)]" />
       </div>
 
       {/* Header */}
-      <header className="relative z-10 border-b border-teal-900/20 bg-black/40 backdrop-blur-xl">
+      <header className="relative z-10 border-b border-gray-200 bg-white/85 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-4 py-8 flex items-center justify-between">
-          <Link href="/" className="group cursor-pointer">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent hover:from-teal-300 hover:to-cyan-300 transition-all duration-300">
-              Smart Pay
-            </h1>
-            <p className="text-sm text-slate-400 mt-1">Private Payment Link</p>
-          </Link>
+          <div className="flex items-center gap-8">
+            <Link href="/" className="flex flex-col">
+              <h1 className="text-3xl font-semibold tracking-[-0.03em] text-gray-950">
+                Smart Pay
+              </h1>
+              <p className="text-sm text-gray-400 mt-1">Private Payment Link</p>
+            </Link>
+            <nav className="hidden md:flex items-center gap-5 text-sm text-gray-500">
+              <Link href="/" className="transition-colors hover:text-gray-900">Home</Link>
+              <Link href="/docs" className="transition-colors hover:text-gray-900">Docs</Link>
+            </nav>
+          </div>
           <div className="ml-4">
-            <WalletMultiButton className="!bg-gradient-to-r !from-teal-600 !to-cyan-600 hover:!from-teal-500 hover:!to-cyan-500 !shadow-lg !shadow-teal-500/20 transition-all duration-300" />
+            <WalletMultiButton className="!bg-gray-900 hover:!bg-gray-800 !shadow-md !rounded-xl transition-all duration-300" />
           </div>
         </div>
       </header>
@@ -161,7 +163,7 @@ export default function PaymentLinkContent() {
       {/* Main Content */}
       <main className="relative z-10 max-w-2xl mx-auto px-4 py-16">
         {/* Payment Transfer Form - Centered */}
-        <div className="transform hover:scale-105 transition-transform duration-300">
+        <div>
           <PrivateTransferForm
             recipientAddress={paymentState.recipientAddress || ''}
             isPaymentLink={true}
@@ -169,15 +171,15 @@ export default function PaymentLinkContent() {
         </div>
 
         {/* Footer */}
-        <footer className="relative z-10 border-t border-teal-900/20 bg-black/40 backdrop-blur-xl mt-20 py-12">
-          <div className="max-w-6xl mx-auto px-4 text-center text-slate-400 text-sm">
-            <p className="hover:text-slate-300 transition-colors">
+        <footer className="relative z-10 border-t border-gray-200 bg-white/70 backdrop-blur-xl mt-20 py-12">
+          <div className="max-w-6xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>
               Private payments powered by{' '}
               <a
                 href="https://privacy.cash"
                 target="_blank"
                 rel="noreferrer"
-                className="text-teal-400 hover:text-teal-300 font-semibold transition-colors"
+                className="text-emerald-600 hover:text-emerald-700 font-semibold transition-colors"
               >
                 Privacy Cash SDK
               </a>
